@@ -17,13 +17,6 @@
   limitations under the License.
 ------------------------------------------------------------------------------*/
 
-#include <linux/types.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-
 #include <lidarlite_v3.h>
 
 /*------------------------------------------------------------------------------
@@ -34,15 +27,15 @@ __s32 LIDARLite_v3::i2c_init (void)
 {
     char *filename = (char*)"/dev/i2c-1";
 
-    if ((file_i2c = open(filename, O_RDWR)) < 0)
+    if ((file_i2c = open(filename, O_RDWR)) > 0)
+    {
+        return 0;
+    }
+    else
     {
         //ERROR HANDLING: you can check errno to see what went wrong
         printf("Failed to open the i2c bus");
         return -1;
-    }
-    else
-    {
-        return 0;
     }
 }
 

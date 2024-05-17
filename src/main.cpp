@@ -2,23 +2,31 @@
 #include <string>
 #include <chrono>
 
-#include "rclcpp.hpp"
+#include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/range.hpp"
 
 #include "lidarlite_v3.h"
+
+using namespace std::chrono_literals;
+
+using std::placeholders::_1;
 
 class LidarLiteNode : public rclcpp::Node, public LIDARLite_v3 {
   public:
     LidarLiteNode() : Node("lidarlite_node") {
       RCLCPP_INFO(this->get_logger(), "Initializing Garmin LiDAR-Lite v3");
-      pub_message = this->create_publisher<std_msgs::msg::String>("lidarlite_v3", 10);
+      pub_range = this->create_publisher<sensor_msgs::msg::Range>("lidarlite_v3", 10);
 
-      timer = this->create_wall_timer(30ms, std::bind(&LidarLiteNode::reading_loop, this));
+      timer_sensor = this->create_wall_timer(30ms, std::bind(&LidarLiteNode::reading_loop, this));
     }
 
   private:
-    void reading_loop {
 
+    rclcpp::Publisher<sensor_msgs::msg::Range>::SharedPtr pub_range;
+    rclcpp::TimerBase::SharedPtr timer_sensor;
+
+    void reading_loop() {
+      return;
     }
 
 };

@@ -20,6 +20,14 @@
 #ifndef LIDARLite_v3_h
 #define LIDARLite_v3_h
 
+#include <linux/types.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <cstdint>
+
 // LIDAR-Lite default I2C device address
 #define LIDARLITE_ADDR_DEFAULT 0x62
 
