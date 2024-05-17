@@ -1,21 +1,50 @@
 cmake_minimum_required(VERSION 3.8)
 project(ros2_lidar_lite_v3)
 
+# Default as C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+
+include_directories(include)
+
+# Create Cpp library from header
+add_library(lidarlite_v3 SHARED src/lidarlite_v3.cpp)
+target_include_directories(lidarlite_v3
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
 
 add_executable(main src/main.cpp)
+target_link_libraries(main
+  lidarlite_v3)
+ament_target_dependencies(main 
+  rclcpp
+  sensor_msgs)
+
+
 target_include_directories(main PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(main PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+
+ament_export_targets(lidarlite_v3 HAS_LIBRARY_TARGET)
+ament_export_dependencies(ament_cmake rclcpp sensor_msgs)
+
+install( 
+  TARGETS lidarlite_v3
+  EXPORT lidarlite_v3
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+)
 
 install(TARGETS main
   DESTINATION lib/${PROJECT_NAME})

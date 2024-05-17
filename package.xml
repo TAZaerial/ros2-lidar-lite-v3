@@ -2,12 +2,16 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ros2_lidar_lite_v3</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="muhammad.rizky912@ui.ac.id">millennianno</maintainer>
-  <license>TODO: License declaration</license>
+  <version>0.0.1</version>
+  <description>ROS2 Garmin LiDAR-Lite v3</description>
+  <maintainer email="r.millennianno@gmail.com">millennianno</maintainer>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>sensor_msgs</depend>
+
+  <exec_depend>rclcpp</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
