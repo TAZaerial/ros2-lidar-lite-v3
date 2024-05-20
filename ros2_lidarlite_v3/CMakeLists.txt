@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ros2_lidar_lite_v3)
+project(ros2_lidarlite_v3)
 
 # Default as C++14
 if(NOT CMAKE_CXX_STANDARD)
@@ -13,6 +13,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(lidarlite_srvs REQUIRED)
 find_package(rclcpp REQUIRED)
 
 include_directories(include)
@@ -29,7 +30,8 @@ target_link_libraries(main
   lidarlite_v3)
 ament_target_dependencies(main 
   rclcpp
-  sensor_msgs)
+  sensor_msgs
+  lidarlite_srvs)
 
 
 target_include_directories(main PUBLIC
