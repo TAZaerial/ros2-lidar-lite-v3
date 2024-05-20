@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>ros2_lidarlite_v3</name>
+  <name>lidarlite_v3</name>
   <version>0.0.1</version>
-  <description>ROS2 Garmin LiDAR-Lite v3</description>
+  <description>ROS2 Garmin LiDAR-Lite v3 driver</description>
   <maintainer email="r.millennianno@gmail.com">millennianno</maintainer>
   <license>MIT</license>
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ros2_lidarlite_v3)
+project(lidarlite_v3)
 
 # Default as C++14
 if(NOT CMAKE_CXX_STANDARD)
