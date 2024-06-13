@@ -16,7 +16,7 @@ using std::placeholders::_2;
 class LidarLiteNode : public rclcpp::Node {
   public:
     LidarLiteNode() : Node("lidarlite_node") {
-      RCLCPP_INFO(this->get_logger(), "Initializing Garmin LiDAR-Lite v3");
+      RCLCPP_INFO(this->get_logger(), "Starting Garmin LiDAR-Lite v3 ROS2 driver");
 
       this->declare_parameter<int>("lidarlite_v3/i2c_address", 0x62);
 
@@ -27,7 +27,7 @@ class LidarLiteNode : public rclcpp::Node {
         RCLCPP_ERROR(this->get_logger(), "Error initializing LiDAR-Lite v3 sensor");
         return;
       }
-      RCLCPP_INFO(this->get_logger(), "LiDAR-Lite v3 sensor initialized");
+      RCLCPP_INFO(this->get_logger(), "LiDAR-Lite v3 initialize success");
       if (lidarlite_i2c_addr != 0x62) {
         RCLCPP_INFO(this->get_logger(), "Setting LiDAR-Lite v3 I2C address to 0x%02X", lidarlite_i2c_addr);
         lidar.setI2Caddr(lidarlite_i2c_addr, true);
@@ -63,7 +63,7 @@ class LidarLiteNode : public rclcpp::Node {
     LIDARLite_v3 lidar;
 
     void cb_sensor() {
-      if (lidar.getBusyFlag()) {
+      if (lidar.getBusyFlag() == 0x00) {
         lidar.takeRange();
         sensor_msg.header.stamp = this->now();
         sensor_msg.range = lidar.readDistance();
