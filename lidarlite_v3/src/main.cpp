@@ -27,7 +27,7 @@ class LidarLiteNode : public rclcpp::Node {
         RCLCPP_ERROR(this->get_logger(), "Error initializing LiDAR-Lite v3 sensor");
         return;
       }
-      RCLCPP_INFO(this->get_logger(), "LiDAR-Lite v3 initialize success");
+      RCLCPP_INFO(this->get_logger(), "LiDAR-Lite v3 initializing success");
       if (lidarlite_i2c_addr != 0x62) {
         RCLCPP_INFO(this->get_logger(), "Setting LiDAR-Lite v3 I2C address to 0x%02X", lidarlite_i2c_addr);
         lidar.setI2Caddr(lidarlite_i2c_addr, true);
@@ -40,7 +40,7 @@ class LidarLiteNode : public rclcpp::Node {
       sensor_msg.min_range = 5;
       sensor_msg.max_range = 40;
 
-      pub_range = this->create_publisher<sensor_msgs::msg::Range>("lidarlite_v3", 10);
+      pub_range = this->create_publisher<sensor_msgs::msg::Range>("lidarlite_v3/range", 10);
 
       timer_sensor = this->create_wall_timer(30ms, std::bind(&LidarLiteNode::cb_sensor, this));
 
